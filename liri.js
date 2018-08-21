@@ -32,7 +32,7 @@ function spotifyThisSong(song) {
     const spotify = new Spotify(keys.spotify);
     const searchTerm = song || getSearchTerm();
     
-    spotify.search({type: "track", query: searchTerm}, function(err, data) {
+    spotify.search({type: "track", query: searchTerm}, (err, data) => {
         if (err) {
             return console.log("BAAARRRFFF XP ", err);
         }
@@ -62,7 +62,7 @@ function concertThis(band) {
 
     const queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
-    request.get(queryUrl, function(err, response) {
+    request.get(queryUrl, (err, response) => {
         if (err) {
             return console.log(err);
         }
@@ -73,7 +73,7 @@ function concertThis(band) {
         try {
             const data = JSON.parse(response.body);
             
-            console.log(chalk.blue("\nConcert results for: ") + chalk.blule(artist) + "\n\n");
+            console.log(chalk.blue("\nConcert results for: ") + chalk.blue(artist) + "\n");
     
             if (data.length > 0) {
                 data.forEach(function(item) {
@@ -85,7 +85,8 @@ function concertThis(band) {
                 console.log(chalk.green(artist) + chalk.red(" doesn't seem to be have any upcoming shows."));
             }
         } catch(e) {
-            console.log(chalk.red("\nbandsintown doesn't have a band record for your search term.\n"));
+            console.log(chalk.red("\nbandsintown doesn't have a band record for " + artist + ".\n"));
+            console.log(e);
         }
     });
 }
@@ -94,28 +95,28 @@ function movieThis(movie) {
     const searchTerm = movie || getSearchTerm();
     const queryUrl = "http://www.omdbapi.com/?apikey=trilogy&t=" + searchTerm;
     
-    request.get(queryUrl, function(err, response) {
+    request.get(queryUrl, (err, response) => {
         if (err) {
-            return log.red(err);
+            return console.log(chalk.red(err));
         }
         
         const data = JSON.parse(response.body);
         
         if (data.Respone === "False" || data.Error === "Movie not found!") {
-            console.log(chalk.red("I wasn't able to find your movie, but have you seen Mr. Nobody?"));
+            console.log(chalk.red("\nI wasn't able to find your movie, but have you seen Mr. Nobody?"));
             console.log(chalk.yellow("It's on Netflix, you should check it out!"));
-            console.log(chalk.blue("http://www.imdb.com/title/tt0485947/"));
+            console.log(chalk.blue("http://www.imdb.com/title/tt0485947/\n\n"));
         } else {
             const imdbRating = data.Ratings.find(rating => rating.Source === "Internet Movie Database") && data.Ratings.find(rating => rating.Source === "Internet Movie Database").Value || "N/A";
             const rtRating = data.Ratings.find(rating => rating.Source === "Rotten Tomatoes") && data.Ratings.find(rating => rating.Source === "Rotten Tomatoes").Value || "N/A";
             
-            console.log(chalk.green(data.Title + "\n"));
+            console.log(chalk.green("\n" + data.Title));
             console.log(chalk.yellow("Release Year: ") + chalk.blue(data.Year));
             console.log(chalk.yellow("IMDB Rating: ") + chalk.blue(imdbRating));
             console.log(chalk.yellow("Rotten Tomatoes Rating: ") + chalk.blue(rtRating));
             console.log(chalk.yellow("Countries of Production: ") + chalk.blue(data.Country));
             console.log(chalk.yellow("Plot: ") + chalk.blue(data.Plot));
-            console.log(chalk.yellow("Actors: ") + chalk.blue(data.Actors));
+            console.log(chalk.yellow("Actors: ") + chalk.blue(data.Actors) + "\n");
         }
     });
 }
