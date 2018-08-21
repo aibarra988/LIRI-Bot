@@ -1,0 +1,26 @@
+{
+  "name": "liri-bot",
+  "version": "1.0.0",
+  "description": "CLI-based SIRI-like app",
+  "main": "liri.js",
+  "scripts": {
+    "test": "node --inspect liri.js spotify-this-song goodbye enemy airship"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aibarra988/LIRI-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aibarra988/LIRI-Bot/issues"
+  },
+  "homepage": "https://github.com/aibarra988/LIRI-Bot#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "dotenv": "^6.0.0",
+    "moment": "^2.22.2",
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.88.0"
+  }
+}
