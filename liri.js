@@ -59,7 +59,6 @@ function spotifyThisSong(song) {
 
 function concertThis(band) {
     const artist = band || getSearchTerm();
-
     const queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
     request.get(queryUrl, (err, response) => {
@@ -72,7 +71,6 @@ function concertThis(band) {
         // aren't any results for that band.
         try {
             const data = JSON.parse(response.body);
-            
             console.log(chalk.blue("\nConcert results for: ") + chalk.blue(artist) + "\n");
     
             if (data.length > 0) {
