@@ -142,3 +142,4 @@ function getSearchTerm() {
 }
 
 selectAction();
+
